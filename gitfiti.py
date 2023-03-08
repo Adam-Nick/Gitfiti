@@ -5,6 +5,7 @@
 #
 """
 gitfiti
+
 noun : Carefully crafted graffiti in a GitHub commit history calendar
 """
 
@@ -12,6 +13,7 @@ from datetime import datetime, timedelta
 import itertools
 import json
 import math
+import os
 try:
     # Python 3+
     from urllib.error import HTTPError, URLError
@@ -112,6 +114,26 @@ HELLO = [
   [0,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,0,4],
 ]
 
+HEART1 = [
+  [0,1,1,0,1,1,0],
+  [1,3,3,1,3,3,1],
+  [1,3,4,3,4,3,1],
+  [1,3,4,4,4,3,1],
+  [0,1,3,4,3,1,0],
+  [0,0,1,3,1,0,0],
+  [0,0,0,1,0,0,0],        
+]
+
+HEART2 = [
+  [0,5,5,0,5,5,0],
+  [5,3,3,5,3,3,5],
+  [5,3,1,3,1,3,5],
+  [5,3,1,1,1,3,5],
+  [0,5,3,1,3,5,0],
+  [0,0,5,3,5,0,0],
+  [0,0,0,5,0,0,0],        
+]
+
 HIREME = [
   [1,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -122,16 +144,55 @@ HIREME = [
   [1,0,1,0,1,0,1,0,0,0,1,1,1,0,0,1,0,1,0,1,0,1,1,1],
 ]
 
-BABY_YODA = [
-[2,2,2,2,2,0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0,2,2,2,2,2],
-[0,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,0],
-[0,0,2,1,1,1,2,2,4,4,4,2,2,2,2,4,4,4,2,2,1,1,1,2,0,0],
-[0,0,0,2,1,1,2,4,4,4,4,4,2,2,4,4,4,4,4,2,1,1,2,0,0,0],
-[0,0,0,0,2,1,2,2,4,4,4,2,2,2,2,4,4,4,2,2,1,2,0,0,0,0],
-[0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0],
-[0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0]
+BEER = [
+  [0,0,0,0,0,0,0,3,3,3,0,0,3,3,3,0,3,3,3,0,3,3,3,0,0],
+  [0,0,1,1,1,1,0,3,0,0,3,0,3,0,0,0,3,0,0,0,3,0,0,3,0],
+  [0,2,2,2,2,2,0,3,0,0,3,0,3,0,0,0,3,0,0,0,3,0,0,3,0],
+  [2,0,2,2,2,2,0,3,3,3,0,0,3,3,3,0,3,3,3,0,3,3,3,0,0],
+  [2,0,2,2,2,2,0,3,0,0,3,0,3,0,0,0,3,0,0,0,3,0,3,0,0],
+  [0,2,2,2,2,2,0,3,0,0,3,0,3,0,0,0,3,0,0,0,3,0,0,3,0],
+  [0,0,2,2,2,2,0,3,3,3,0,0,3,3,3,0,3,3,3,0,3,0,0,3,0],
 ]
 
+GLIDERS = [
+  [0,0,0,4,0,4,0,0,0,0,4,0,0,0],
+  [0,4,0,4,0,0,4,4,0,0,0,4,0,0],
+  [0,0,4,4,0,4,4,0,0,4,4,4,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,4,0,4,0,0,0,4,0,0,0,0,0,0],
+  [0,0,4,4,0,4,0,4,0,0,0,0,0,0],
+  [0,0,4,0,0,0,4,4,0,0,0,0,0,0],
+]
+
+HEART = [
+  [0,4,4,0,4,4,0],
+  [4,2,2,4,2,2,4],
+  [4,2,2,2,2,2,4],
+  [4,2,2,2,2,2,4],
+  [0,4,2,2,2,4,0],
+  [0,0,4,2,4,0,0],
+  [0,0,0,4,0,0,0],
+]
+
+HEART_SHINY = [
+  [0,4,4,0,4,4,0],
+  [4,2,0,4,2,2,4],
+  [4,0,2,2,2,2,4],
+  [4,2,2,2,2,2,4],
+  [0,4,2,2,2,4,0],
+  [0,0,4,2,4,0,0],
+  [0,0,0,4,0,0,0],
+]
+
+Baby_Yoda_Gitfiti = [
+    [2,2,2,2,2,0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0,2,2,2,2,2],
+    [0,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,0],
+    [0,0,2,1,1,1,2,2,4,4,4,2,2,2,2,4,4,4,2,2,1,1,1,2,0,0],
+    [0,0,0,2,1,1,2,4,4,4,4,4,2,2,4,4,4,4,4,2,1,1,2,0,0,0],
+    [0,0,0,0,2,1,2,2,4,4,4,2,2,2,2,4,4,4,2,2,1,2,0,0,0,0],
+    [0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0],
+    [0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0]
+]
 
 ASCII_TO_NUMBER = {
   '_': 0,
@@ -180,11 +241,21 @@ IMAGES = {
   'octocat': OCTOCAT,
   'octocat2': OCTOCAT2,
   'hello': HELLO,
+  'heart1': HEART1,
+  'heart2': HEART2,
   'hireme': HIREME,
   'oneup_str': ONEUP_STR,
-  'baby yoda': BABY_YODA
+  'beer': BEER,
+  'gliders': GLIDERS,
+  'heart' : HEART, 
+  'heart_shiny' : HEART_SHINY,
+    'yoda' : Baby_Yoda_Gitfiti,
 }
 
+SHELLS = {
+  'bash': 'sh',
+  'powershell': 'ps1',
+}
 
 def load_images(img_names):
     """loads user images from given file(s)"""
@@ -291,17 +362,25 @@ def generate_values_in_date_order(image, multiplier=1):
             yield image[h][w] * multiplier
 
 
-def commit(commitdate):
-    template = (
+def commit(commitdate, shell):
+    template_bash = (
         '''GIT_AUTHOR_DATE={0} GIT_COMMITTER_DATE={1} '''
         '''git commit --allow-empty -m "gitfiti" > /dev/null\n'''
     )
+    
+    template_powershell = (
+        '''$Env:GIT_AUTHOR_DATE="{0}"\n$Env:GIT_COMMITTER_DATE="{1}"\n'''
+        '''git commit --allow-empty -m "gitfiti" | Out-Null\n'''
+    )
+
+    template = template_bash if shell == 'bash' else template_powershell
+
     return template.format(commitdate.isoformat(), commitdate.isoformat())
 
 
-def fake_it(image, start_date, username, repo, git_url, offset=0, multiplier=1):
-    template = (
-        '#!/bin/bash\n'
+def fake_it(image, start_date, username, repo, git_url, shell, offset=0, multiplier=1):
+    template_bash = (
+        '#!/usr/bin/env bash\n'
         'REPO={0}\n'
         'git init $REPO\n'
         'cd $REPO\n'
@@ -310,16 +389,35 @@ def fake_it(image, start_date, username, repo, git_url, offset=0, multiplier=1):
         'touch gitfiti\n'
         'git add gitfiti\n'
         '{1}\n'
+        'git branch -M main\n'
         'git remote add origin {2}:{3}/$REPO.git\n'
-        'git pull origin master\n'
-        'git push -u origin master\n'
+        'git pull origin main\n'
+        'git push -u origin main\n'
     )
+
+    template_powershell = (
+        'cd $PSScriptRoot\n'
+        '$REPO="{0}"\n'
+        'git init $REPO\n'
+        'cd $REPO\n'
+        'New-Item README.md -ItemType file | Out-Null\n'
+        'git add README.md\n'
+        'New-Item gitfiti -ItemType file | Out-Null\n'
+        'git add gitfiti\n'
+        '{1}\n'
+        'git branch -M main\n'
+        'git remote add origin {2}:{3}/$REPO.git\n'
+        'git pull origin main\n'
+        'git push -u origin main\n'
+    )
+
+    template = template_bash if shell == 'bash' else template_powershell
 
     strings = []
     for value, date in zip(generate_values_in_date_order(image, multiplier),
             generate_next_dates(start_date, offset)):
         for _ in range(value):
-            strings.append(commit(date))
+            strings.append(commit(date, shell))
 
     return template.format(repo, ''.join(strings), git_url, username)
 
@@ -328,6 +426,7 @@ def save(output, filename):
     """Saves the list to a given filename"""
     with open(filename, 'w') as f:
         f.write(output)
+    os.chmod(filename, 0o755) # add execute permissions
 
 
 def request_user_input(prompt='> '):
@@ -400,12 +499,18 @@ def main():
         git_url = 'git@github.com'
     else:
         git_url = request_user_input('Enter Git URL like git@site.github.com: ')
+        
+    shell = ''
+    while shell not in SHELLS.keys(): 
+        shell = request_user_input(
+            'Enter the target shell ({}): '.format(' or '.join(SHELLS.keys())))
 
-    output = fake_it(image, start_date, username, repo, git_url, offset,
+    output = fake_it(image, start_date, username, repo, git_url, shell, offset,
                      fake_it_multiplier)
 
-    save(output, 'gitfiti.sh')
-    print('gitfiti.sh saved.')
+    output_filename = 'gitfiti.{}'.format(SHELLS[shell])
+    save(output, output_filename)
+    print('{} saved.'.format(output_filename))
     print('Create a new(!) repo named {0} at {1} and run the script'.format(repo, git_base))
 
 
