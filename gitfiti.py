@@ -5,7 +5,6 @@
 #
 """
 gitfiti
-
 noun : Carefully crafted graffiti in a GitHub commit history calendar
 """
 
@@ -14,20 +13,20 @@ import itertools
 import json
 import math
 import os
-try:
-    # Python 3+
-    from urllib.error import HTTPError, URLError
-    from urllib.request import urlopen
+# try:
+#     # Python 3+
+from urllib.error import HTTPError, URLError
+from urllib.request import urlopen
 except ImportError:
     # Python 2
     from urllib2 import HTTPError, URLError, urlopen
 
-try:
-    # Python 2
-    raw_input
-except NameError:
-    # Python 3 (Python 2's `raw_input` was renamed to `input`)
-    raw_input = input
+# try:
+#     # Python 2
+#     raw_input
+# except NameError:
+#     # Python 3 (Python 2's `raw_input` was renamed to `input`)
+#     raw_input = input
 
 
 GITHUB_BASE_URL = 'https://github.com/'
@@ -184,16 +183,6 @@ HEART_SHINY = [
   [0,0,0,4,0,0,0],
 ]
 
-Baby_Yoda_Gitfiti = [
-    [2,2,2,2,2,0,0,0,2,2,2,2,2,2,2,2,2,2,0,0,0,2,2,2,2,2],
-    [0,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,0],
-    [0,0,2,1,1,1,2,2,4,4,4,2,2,2,2,4,4,4,2,2,1,1,1,2,0,0],
-    [0,0,0,2,1,1,2,4,4,4,4,4,2,2,4,4,4,4,4,2,1,1,2,0,0,0],
-    [0,0,0,0,2,1,2,2,4,4,4,2,2,2,2,4,4,4,2,2,1,2,0,0,0,0],
-    [0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0],
-    [0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0]
-]
-
 ASCII_TO_NUMBER = {
   '_': 0,
   '_': 1,
@@ -249,7 +238,6 @@ IMAGES = {
   'gliders': GLIDERS,
   'heart' : HEART, 
   'heart_shiny' : HEART_SHINY,
-    'yoda' : Baby_Yoda_Gitfiti,
 }
 
 SHELLS = {
