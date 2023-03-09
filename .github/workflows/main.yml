@@ -18,7 +18,7 @@ import os
     # Python 3+
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
-except ImportError:
+# except ImportError:
     # Python 2
 #    from urllib2 import HTTPError, URLError, urlopen
 
